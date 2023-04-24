@@ -1,0 +1,77 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "kbot"
+description = ''
+readme = "README.md"
+requires-python = ">=3.8"
+license = "MIT"
+keywords = []
+authors = [
+  { name = "Kurtis Fields", email = "kurtisfields@gmail.com" },
+]
+classifiers = [
+  "Development Status :: 4 - Beta",
+  "Programming Language :: Python",
+  "Programming Language :: Python :: 3.7",
+  "Programming Language :: Python :: 3.8",
+  "Programming Language :: Python :: 3.9",
+  "Programming Language :: Python :: 3.10",
+  "Programming Language :: Python :: 3.11",
+  "Programming Language :: Python :: Implementation :: CPython",
+  "Programming Language :: Python :: Implementation :: PyPy",
+]
+dependencies = [
+  "loguru==0.7.0",
+  "numpy==1.24.2",
+  "openai==0.27.1",
+  "pandas==1.5.3",
+  "redis==4.5.1",
+  "requests==2.28.2",
+  "streamlit==1.20.0",
+  "streamlit_chat==0.0.2.2",
+  "termcolor==2.2.0",
+  "pypdf ==3.8.0",
+  "PyMuPDF ==1.22.1",
+  "jupyter",
+  "ipykernel",
+  #"textract",
+  "tiktoken"
+]
+dynamic = ["version"]
+
+[project.urls]
+Documentation = "https://github.com/kfields/kbot#readme"
+Issues = "https://github.com/kfields/kbot/issues"
+Source = "https://github.com/kfields/kbot"
+
+[tool.hatch.version]
+path = "kbot/__about__.py"
+
+[tool.hatch.envs.default]
+dependencies = [
+  "pytest",
+  "pytest-cov",
+]
+[tool.hatch.envs.default.scripts]
+cov = "pytest --cov-report=term-missing --cov-config=pyproject.toml --cov=kbot --cov=tests {args}"
+no-cov = "cov --no-cov {args}"
+
+[[tool.hatch.envs.test.matrix]]
+python = ["38", "39", "310", "311"]
+
+[tool.coverage.run]
+branch = true
+parallel = true
+omit = [
+  "kbot/__about__.py",
+]
+
+[tool.coverage.report]
+exclude_lines = [
+  "no cov",
+  "if __name__ == .__main__.:",
+  "if TYPE_CHECKING:",
+]
